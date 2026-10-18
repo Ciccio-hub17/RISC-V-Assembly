@@ -1,0 +1,27 @@
+<h3>Relational logical schema</h3>IMPIANTO (<u  style="text-decoration: underline;">Id_I</u>, Nome, Capienza_Massima, Indirizzo_Civico, Indirizzo_CAP, Indirizzo_Via)<br><br>
+MEMBRO (<u  style="text-decoration: underline;">ID_M</u>, Cognome, Data_Assunzione, Nome, Type)<br><br>
+VIDEOCORSO (<u  style="text-decoration: underline;">ID_VC</u>, Nome, Durata)<br><br>
+PRODOTTO (<u  style="text-decoration: underline;">ID_P</u>, Nome, CostoUnitario, Marchio, modello*, Scadenza*, Type)<br><br>
+SOCIO (<u  style="text-decoration: underline;">Cod_fisc</u>, Nome, Cognome, Telefono)<br><br>
+ABBONAMENTO (<u  style="text-decoration: underline;">IMPIANTO_Id_I</u>, <u  style="text-decoration: underline;">ID_AB</u>, Data_fine*, Costo, Data_inizio, SOCIO_Cod_fisc)<br><br>
+INTERVENTO (<u  style="text-decoration: underline;">MEMBRO_ID_M</u>, <u  style="text-decoration: underline;">Ora</u>, <u  style="text-decoration: underline;">Data</u>, IMPIANTO_Id_I)<br><br>
+MANSIONE (<u  style="text-decoration: underline;">MEMBRO_ID_M</u>, <u  style="text-decoration: underline;">Data_inizio</u>, <u  style="text-decoration: underline;">Ora_Inizio</u>, Nome, Data_Fine*, Ora_Fine*, IMPIANTO_Id_I)<br><br>
+SESSIONE (<u  style="text-decoration: underline;">SOCIO_Cod_fisc</u>, <u  style="text-decoration: underline;">Inizio</u>, Fine*, VIDEOCORSO_ID_VC)<br><br>
+HAS_SPECIALIZZAZIONI (<u  style="text-decoration: underline;">MEMBRO_ID_M</u>, <u  style="text-decoration: underline;">SPECIALIZZAZIONI_Specializzazioni</u>)<br><br>
+REGISTRATO (<u  style="text-decoration: underline;">MEMBRO_ID_M</u>, <u  style="text-decoration: underline;">VIDEOCORSO_ID_VC</u>)<br><br>
+USARE (<u  style="text-decoration: underline;">PRODOTTO_ID_P</u>, <u  style="text-decoration: underline;">INTERVENTO_MEMBRO_ID_M</u>, <u  style="text-decoration: underline;">INTERVENTO_Ora</u>, <u  style="text-decoration: underline;">INTERVENTO_Data</u>, Qta)<br><br>
+HAS_CERTCONFORMITA (<u  style="text-decoration: underline;">PRODOTTO_ID_P</u>, <u  style="text-decoration: underline;">CERTCONFORMITA_CertConformita</u>)<br><br>
+
+<br><h3>Referential integrity constraints</h3>
+
+
+
+
+ABBONAMENTO (IMPIANTO_Id_I)  REFERENCES IMPIANTO  (Id_I)<br><br>ABBONAMENTO (SOCIO_Cod_fisc)  REFERENCES SOCIO  (Cod_fisc)<br><br>
+INTERVENTO (MEMBRO_ID_M)  REFERENCES MEMBRO  (ID_M)<br><br>INTERVENTO (IMPIANTO_Id_I)  REFERENCES IMPIANTO  (Id_I)<br><br>
+MANSIONE (MEMBRO_ID_M)  REFERENCES MEMBRO  (ID_M)<br><br>MANSIONE (IMPIANTO_Id_I)  REFERENCES IMPIANTO  (Id_I)<br><br>
+SESSIONE (SOCIO_Cod_fisc)  REFERENCES SOCIO  (Cod_fisc)<br><br>SESSIONE (VIDEOCORSO_ID_VC)  REFERENCES VIDEOCORSO  (ID_VC)<br><br>
+HAS_SPECIALIZZAZIONI (MEMBRO_ID_M)  REFERENCES MEMBRO  (ID_M)<br><br>
+REGISTRATO (MEMBRO_ID_M)  REFERENCES MEMBRO  (ID_M)<br><br>REGISTRATO (VIDEOCORSO_ID_VC)  REFERENCES VIDEOCORSO  (ID_VC)<br><br>
+USARE (PRODOTTO_ID_P)  REFERENCES PRODOTTO  (ID_P)<br><br>USARE (INTERVENTO_MEMBRO_ID_M, INTERVENTO_Ora, INTERVENTO_Data)  REFERENCES INTERVENTO  (MEMBRO_ID_M, Ora, Data)<br><br>
+HAS_CERTCONFORMITA (PRODOTTO_ID_P)  REFERENCES PRODOTTO  (ID_P)<br><br>
